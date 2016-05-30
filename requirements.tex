@@ -1,0 +1,71 @@
+\documentclass[10pt,a4paper,notitlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Felix Lüpke}
+\begin{document}
+\section{Funktionale Anforderungen}
+Eigentlicher Gegenstand ist die Software für die Regieführung, Videoanzeige- und Verarbeitung live bei Kicker-Spielen. Außerdem gibt es als Nebenprodukt eine Clientsoftware für den Raspberry Pi.
+\subsection{Videoanzeige}
+\begin{itemize}
+\item eingehendes Bildmaterial wird standardmäßig in der GUI als weiteres Element angezeigt
+\item Der Nutzer kann zur Vollbildanzeige wechseln und die Videoanzeige in einem Eigenen Fenster öffnen (und somit das Bild z.B. über den Beamer anzeigen und gleichzeitig im Hintergrund Regie führen)
+\item beim Eingang mehrerer Signale verschiedener Kameraclients kann die Quelle über zwei Buttons bestimmt werden (next Table, previous Table)
+\item entweder Anzeige eines oder mehrerer in einer Art Split-Screen (wird über einen speziellen Punkt in der Auswahl entschieden)
+\item über zwei Buttons kann die Anzeige gestartet und angehalten werden (Play, Stop)
+\end{itemize}
+\subsection{Videoverarbeitung}
+\begin{itemize}
+\item der Nutzer hat die Möglichkeit Mitschnitte vom Videostream anzufertigen 
+\item über zwei Buttons kann die \textbf{Aufnahmefunktion} gesteuert werden (Start Rec, Stop Rec)
+\item über eine Auswahl können ein, oder Mehrere Datenträger bestimmt werden, auf jedes gewählte Gerät wird eine Kopie geschrieben
+\item in einem weiteren Auswahlbereich kann das Streaming an einen Online-Livestreaming-Dienst aktiviert werden. 
+\item alternativ zur Standardqualität soll der Nutzer die Möglichkeit haben, die Auflösung und evtl. FPS einzustellen
+\end{itemize}
+\subsection{Oberfläche}
+\begin{itemize}
+\item zu jedem Tisch (also zu jeder Videoquelle) wird dem Nutzer Nummer und Hersteller des Tisches angezeigt
+\item ist der Online-Livestream aktiv, so werden dem Nutzer Statistiken angezeigt (Zuschauer, Anzahl d. Aufrufe usw.)
+\end{itemize}
+\subsection{Sonstiges}
+\begin{itemize}
+\item Es soll die Möglichkeit geben, über ein am Rechner angeschlossenes Mikrophon den Spielverlauf zu kommentieren
+\item Ton soll über Boxen wiedergegeben werden (evtl. auch online streamen)
+\end{itemize}
+\section{Nicht-Funktionale Anforderungen}
+Aktuell wird angestrebt, jegliche zu erzeugende Software in Java zusammen mit JavaFX zu schreiben. Des Weiteren wird ein Repository auf GitHub angelegt. Für die Entwicklung werden Scene Builder und Netbeans eingesetzt.
+\subsection{Komponenten}
+\begin{itemize}
+\item Bild und Ton sollen mit der Media-Klasse aus javaFx behandelt werden
+\item ein Kameraclient besteht aus einem Raspberry Pi und einer Kamera
+\item denkbare Kameras sind die Aktuelle Pi Cam und zum Testen eine einfache USB Cam von Lenco
+\item auf dem Pi soll eine Software laufen, mit welcher das Kamerabild abgegriffen und über LAN weiter an einen Rechner mit der Hauptanwendung, welche in den Funktionalen Anforderungen thematisiert wurde, gestreamt wird
+\item Kameraclients dürfen nicht auf einen speziellen Kameratypen angewiesen sein, da zukünftig auch GoPros und andere USB-Kameras eingesetzt werden könnten
+\item über über die Videoübertragung wird noch zu sprechen sein (evtl. Socket Server)
+\end{itemize}
+\subsection{Oberfläche}
+\begin{itemize}
+\item für Anzeige von Tischnummer und Hersteller wäre es vermutlich die beste Lösung die Zuordnung vom Nutzer machen zu lassen
+\item die GUI wird im Scene Builder aufgebaut
+\end{itemize}
+\subsection{Video}
+\begin{itemize}
+\item Einstellung der Qualität ergibt offensichtlich nur Sinn für Online-Livestream und Speichern auf dem Stick (zwei seperate Dropdowns?)
+\end{itemize}
+\section{Meilensteine}
+\begin{enumerate}
+\item Herstellung der Kommunikation zwischen Pi und Rechner
+\item rudimentäre Software für Videoübertragung von Pi zu Hauptrechner
+\item Anpassung der GUI des Hauptprogramms 
+\item Funktionalität für Mitschnitte in unterschiedlicher Qualität
+\item Verschiedene Anzeigemodi für Video
+\item Audioverarbeitung
+\item Vereinigung von Video und Audio
+\item Anbindung Audio an Mitschnitte
+\item Online-Livestream
+\item Designüberarbeitung
+\end{enumerate}
+\end{document}
