@@ -16,7 +16,6 @@
  *
  * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015 Caprica Software Limited.
  */
-
 package videoProcessing;
 
 import com.sun.jna.Memory;
@@ -41,23 +40,30 @@ import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
 import java.nio.ByteBuffer;
 import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 /**
- * Dynamically resizable player put in a more modular state to better fit into existing javafx8 applications.
+ * Dynamically resizable player put in a more modular state to better fit into
+ * existing javafx8 applications.
  * <p>
- * Originally contributed by Vladislav Kisel, https://github.com/caprica/vlcj-javafx/pull/9,
- * incorporated by caprica with minor changes, https://github.com/caprica/vlcj-javafx, 
- * made ready for modular use by Felix Lüpke.
+ * Originally contributed by Vladislav Kisel,
+ * https://github.com/caprica/vlcj-javafx/pull/9, incorporated by caprica with
+ * minor changes, https://github.com/caprica/vlcj-javafx, made ready for modular
+ * use by Felix Lüpke.
  * <p>
  */
 public class ResizableJavaFXPlayerTest {
 
-    private  String PATH_TO_VIDEO;
+    private String PATH_TO_VIDEO;
 
     private ImageView imageView;
 
     private DirectMediaPlayerComponent mediaPlayerComponent;
+
+    private MediaPlayer mediaPlayer;
+    
+    private boolean playing = false;
 
     private WritableImage writableImage;
 
@@ -69,10 +75,10 @@ public class ResizableJavaFXPlayerTest {
 
     public ResizableJavaFXPlayerTest(String videoSource) {
         this.PATH_TO_VIDEO = videoSource;
-        NativeLibrary.addSearchPath( RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC" );
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
         String libName = RuntimeUtil.getLibVlcLibraryName();
         Native.loadLibrary(libName, LibVlc.class);
-        
+
         mediaPlayerComponent = new CanvasPlayerComponent();
         playerHolder = new Pane();
         videoSourceRatioProperty = new SimpleFloatProperty(0.4f);
@@ -80,25 +86,27 @@ public class ResizableJavaFXPlayerTest {
         initializeImageView();
         this.playerHolder.resize(470, 320);
     }
-    
-    public ImageView getImageView() {
-        return this.imageView;
-    }
-    
+
     public Pane getPane() {
         return this.playerHolder;
     }
-    
+
     public void play() {
-        this.mediaPlayerComponent.getMediaPlayer().prepareMedia(PATH_TO_VIDEO);
-        this.mediaPlayerComponent.getMediaPlayer().start();
+        this.mediaPlayer = this.mediaPlayerComponent.getMediaPlayer();
+        this.mediaPlayer.prepareMedia(PATH_TO_VIDEO);
+        this.mediaPlayer.start();
+        this.playing = true;
+    }
+
+    public void pause() {
+        this.mediaPlayer.pause();
+        this.playing = false;
     }
     
-    //TODO needs fix due to NullPointerException
-    public void stop() {
-        this.mediaPlayerComponent.getMediaPlayer().stop();
+    public boolean isPlaying() {
+        return this.playing;
     }
-    
+
     private void initializeImageView() {
         Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
         writableImage = new WritableImage((int) visualBounds.getWidth(), (int) visualBounds.getHeight());
@@ -128,8 +136,7 @@ public class ResizableJavaFXPlayerTest {
                 imageView.setFitWidth(fitWidth);
                 imageView.setX((width - fitWidth) / 2);
                 imageView.setY(0);
-            }
-            else {
+            } else {
                 imageView.setFitWidth(width);
                 imageView.setFitHeight(fitHeight);
                 imageView.setY((height - fitHeight) / 2);
@@ -163,8 +170,7 @@ public class ResizableJavaFXPlayerTest {
                 try {
                     ByteBuffer byteBuffer = nativeBuffer.getByteBuffer(0, nativeBuffer.size());
                     getPW().setPixels(0, 0, bufferFormat.getWidth(), bufferFormat.getHeight(), pixelFormat, byteBuffer, bufferFormat.getPitches()[0]);
-                }
-                finally {
+                } finally {
                     mediaPlayer.unlock();
                 }
             });
@@ -172,6 +178,7 @@ public class ResizableJavaFXPlayerTest {
     }
 
     private class CanvasBufferFormatCallback implements BufferFormatCallback {
+
         @Override
         public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
             Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();

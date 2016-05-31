@@ -8,8 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kickercam.FXMLDocumentController">
    <children>
-      <Button fx:id="playButton" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onAction="#displayVideo" text="Play" />
-      <Button fx:id="pauseButton" layoutX="60.0" layoutY="486.0" mnemonicParsing="false" onAction="#pauseVideo" text="Pause" />
+      <Button fx:id="playButton" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onAction="#displayVideo" prefHeight="25.0" prefWidth="93.0" text="Play" />
       <Button fx:id="startRecButton" layoutX="116.0" layoutY="486.0" mnemonicParsing="false" text="Start Rec." />
       <Button fx:id="stopRecButton" layoutX="197.0" layoutY="486.0" mnemonicParsing="false" text="Stop Rec." />
       <Button fx:id="fullscreenButton" layoutX="197.0" layoutY="410.0" mnemonicParsing="false" text="Fullscreen" />

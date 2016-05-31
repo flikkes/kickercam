@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import videoProcessing.ResizableJavaFXPlayerTest;
 
@@ -17,9 +18,14 @@ import videoProcessing.ResizableJavaFXPlayerTest;
  * @author flikkes
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     private ResizableJavaFXPlayerTest player;
-    @FXML private BorderPane borderPane;
+    @FXML
+    private BorderPane borderPane;
+    
+    @FXML
+    private Button playButton;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        VideoStreamer videoStreamer = new VideoStreamer("http://10.10.10.11:8081/", this.mediaView);
@@ -27,18 +33,22 @@ public class FXMLDocumentController implements Initializable {
 //        videoStreamer.start();
         this.player = new ResizableJavaFXPlayerTest("http://10.10.10.11:8081/");
         this.borderPane.getChildren().add(player.getPane());
-        
+
 //        WebcamService webcamService = new WebcamService("http://10.10.10.11:8081/");
 //        MediaPlayer ply1 = webcamService.getMediaPlayer();
 //        this.imageView.setImage(null);
 //        ply1.play();
     }
 
-    @FXML private void displayVideo() {
-        this.player.play();
+    @FXML
+    private void displayVideo() {
+        if (this.player.isPlaying()) {
+            this.player.pause();
+            this.playButton.setText("Play");
+
+        } else {
+            this.player.play();
+            this.playButton.setText("Pause");
+        }
     }
-    @FXML private void pauseVideo() {
-        this.player.stop();
-    }
-    
 }
