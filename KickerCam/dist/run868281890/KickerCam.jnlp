@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="KickerCam.jnlp">
+  <information>
+    <title>KickerCam</title>
+    <vendor>flikkes</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="KickerCam.jar" size="7081" download="eager" />
+    <jar href="lib\commons-io-2.5-javadoc.jar" size="765022" download="eager" />
+    <jar href="lib\commons-io-2.5.jar" size="208696" download="eager" />
+    <jar href="lib\jna-4.1.0.jar" size="914597" download="eager" />
+    <jar href="lib\jna-platform-4.1.0.jar" size="1464423" download="eager" />
+    <jar href="lib\slf4j-api-1.7.10.jar" size="32119" download="eager" />
+    <jar href="lib\vlcj-3.10.1-javadoc.jar" size="1932258" download="eager" />
+    <jar href="lib\vlcj-3.10.1-sources.jar" size="444092" download="eager" />
+    <jar href="lib\vlcj-3.10.1-test-sources.jar" size="220258" download="eager" />
+    <jar href="lib\vlcj-3.10.1-tests.jar" size="402818" download="eager" />
+    <jar href="lib\vlcj-3.10.1.jar" size="404748" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="KickerCam" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="kickercam.KickerCam"  name="KickerCam" />
+  <update check="always"/>
+</jnlp>
