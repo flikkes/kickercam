@@ -55,6 +55,8 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
  */
 public class ResizableJavaFXPlayerTest {
 
+    private final int PLAYER_ARRAY_SIZE = 4;
+
     private String PATH_TO_VIDEO;
 
     private ImageView imageView;
@@ -62,7 +64,7 @@ public class ResizableJavaFXPlayerTest {
     private DirectMediaPlayerComponent mediaPlayerComponent;
 
     private MediaPlayer mediaPlayer;
-    
+
     private boolean playing = false;
 
     private WritableImage writableImage;
@@ -73,7 +75,7 @@ public class ResizableJavaFXPlayerTest {
 
     private FloatProperty videoSourceRatioProperty;
 
-    public ResizableJavaFXPlayerTest(String videoSource) {
+    public ResizableJavaFXPlayerTest(String videoSource, double width, double height) {
         this.PATH_TO_VIDEO = videoSource;
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
         String libName = RuntimeUtil.getLibVlcLibraryName();
@@ -84,7 +86,7 @@ public class ResizableJavaFXPlayerTest {
         videoSourceRatioProperty = new SimpleFloatProperty(0.4f);
         pixelFormat = PixelFormat.getByteBgraPreInstance();
         initializeImageView();
-        this.playerHolder.resize(470, 320);
+        this.playerHolder.resize(width, height);
     }
 
     public Pane getPane() {
@@ -92,19 +94,33 @@ public class ResizableJavaFXPlayerTest {
     }
 
     public void play() {
-        this.mediaPlayer = this.mediaPlayerComponent.getMediaPlayer();
-        this.mediaPlayer.prepareMedia(PATH_TO_VIDEO);
-        this.mediaPlayer.start();
+        this.mediaPlayerComponent.getMediaPlayer().prepareMedia(PATH_TO_VIDEO);
+        this.mediaPlayerComponent.getMediaPlayer().start();
         this.playing = true;
     }
 
     public void pause() {
-        this.mediaPlayer.pause();
+        this.mediaPlayerComponent.getMediaPlayer().pause();
         this.playing = false;
     }
     
+    /**
+     * !!!DANGEROUS!!! <br> 
+     * Only for testing purposes <br>
+     * Player won't be able to play video after calling this method.
+     */
+
+    public void killPlayer() {
+
+        this.mediaPlayerComponent.getMediaPlayer().release();
+    }
+
     public boolean isPlaying() {
         return this.playing;
+    }
+
+    public void setDisplaySize(double width, double height) {
+        this.playerHolder.resize(width, height);
     }
 
     private void initializeImageView() {

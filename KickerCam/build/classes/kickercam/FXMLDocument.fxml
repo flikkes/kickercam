@@ -14,9 +14,10 @@
       <Button fx:id="fullscreenButton" layoutX="197.0" layoutY="410.0" mnemonicParsing="false" text="Fullscreen" />
       <Button fx:id="nextTableButton" layoutX="116.0" layoutY="410.0" mnemonicParsing="false" text="Next Table" />
       <Button fx:id="previousTableButton" layoutX="14.0" layoutY="410.0" mnemonicParsing="false" text="Previous Table" />
-      <ComboBox fx:id="qualityComboBox" layoutX="334.0" layoutY="486.0" prefHeight="25.0" prefWidth="69.0" />
-      <Label layoutX="274.0" layoutY="490.0" text="Quality" />
+      <ComboBox fx:id="qualityComboBox" layoutX="343.0" layoutY="486.0" prefHeight="25.0" prefWidth="68.0" />
+      <Label layoutX="296.0" layoutY="490.0" text="Quality" />
       <Button fx:id="popOutButton" layoutX="274.0" layoutY="410.0" mnemonicParsing="false" text="Pop Out" />
       <BorderPane fx:id="borderPane" layoutX="16.0" layoutY="14.0" prefHeight="261.0" prefWidth="315.0" />
+      <Button fx:id="splitViewButton" layoutX="343.0" layoutY="410.0" mnemonicParsing="false" onAction="#toggleSplitView" text="Split View" />
    </children>
 </AnchorPane>

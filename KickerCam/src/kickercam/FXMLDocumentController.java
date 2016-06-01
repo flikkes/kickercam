@@ -11,7 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import videoProcessing.ResizableJavaFXPlayerTest;
+import videoProcessing.SplitViewPlayer;
 
 /**
  *
@@ -20,35 +22,51 @@ import videoProcessing.ResizableJavaFXPlayerTest;
 public class FXMLDocumentController implements Initializable {
 
     private ResizableJavaFXPlayerTest player;
+    private SplitViewPlayer splitViewPlayer;
+
     @FXML
     private BorderPane borderPane;
-    
+
     @FXML
     private Button playButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        VideoStreamer videoStreamer = new VideoStreamer("http://10.10.10.11:8081/", this.mediaView);
-//        System.out.println("starting to stream...");
-//        videoStreamer.start();
-        this.player = new ResizableJavaFXPlayerTest("http://10.10.10.11:8081/");
-        this.borderPane.getChildren().add(player.getPane());
+        this.player = new ResizableJavaFXPlayerTest("http://10.10.10.11:8081/", 480, 320);
+        String[] sources = {"http://10.10.10.11:8081/", "http://10.10.10.11:8081/", "http://10.10.10.11:8081/", "http://10.10.10.11:8081/"};
+        this.splitViewPlayer = new SplitViewPlayer(sources, 480, 320);
+        
 
-//        WebcamService webcamService = new WebcamService("http://10.10.10.11:8081/");
-//        MediaPlayer ply1 = webcamService.getMediaPlayer();
-//        this.imageView.setImage(null);
-//        ply1.play();
     }
 
     @FXML
     private void displayVideo() {
+        this.borderPane.getChildren().clear();
+        this.borderPane.getChildren().add(this.player.getPane());
         if (this.player.isPlaying()) {
             this.player.pause();
             this.playButton.setText("Play");
 
         } else {
+            this.splitViewPlayer.pauseSplitView();
             this.player.play();
             this.playButton.setText("Pause");
+        }
+    }
+
+    @FXML
+    private void toggleSplitView() {
+        Pane[] splitPanes = this.splitViewPlayer.getPanes();
+        this.borderPane.getChildren().clear();
+//        this.borderPane.getChildren().add(this.splitViewPlayer.getSplitView());
+        for (Pane p : splitPanes) {
+            this.borderPane.getChildren().add(p);
+        }
+        if (this.splitViewPlayer.isPlaying()) {
+            this.splitViewPlayer.pauseSplitView();
+        } else {
+            this.player.pause();
+            this.splitViewPlayer.playSplitView();
         }
     }
 }
