@@ -53,7 +53,7 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
  * use by Felix Lüpke.
  * <p>
  */
-public class ResizableJavaFXPlayerTest {
+public class ResizableJavaFXPlayer {
 
     private final int PLAYER_ARRAY_SIZE = 4;
 
@@ -75,7 +75,7 @@ public class ResizableJavaFXPlayerTest {
 
     private FloatProperty videoSourceRatioProperty;
 
-    public ResizableJavaFXPlayerTest(String videoSource, double width, double height) {
+    public ResizableJavaFXPlayer(String videoSource, double width, double height) {
         this.PATH_TO_VIDEO = videoSource;
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
         String libName = RuntimeUtil.getLibVlcLibraryName();
