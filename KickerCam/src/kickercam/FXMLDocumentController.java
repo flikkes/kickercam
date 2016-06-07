@@ -6,6 +6,8 @@
 package kickercam;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +32,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button playButton, splitViewButton;
 
-    String testURL = "http://jjc.freeshell.org/turning_pages.avi";
+    String testURL = "http://10.10.10.11:8081/";
+    
+    List<String> sources = new ArrayList<>();
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,5 +80,25 @@ public class FXMLDocumentController implements Initializable {
             this.playButton.setText("Play");
             this.splitViewButton.setText("Pause Split View");
         }
+    }
+    
+    @FXML
+    private void toggleNextTable() {
+        
+    }
+    
+    @FXML
+    private void togglePreviousTable() {
+        
+    }
+    
+    @FXML
+    private void addCamSatellite() {
+        
+    }
+    
+    @FXML
+    private void addVideoClip() {
+        
     }
 }
