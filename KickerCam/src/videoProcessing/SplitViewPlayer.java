@@ -57,34 +57,50 @@ public class SplitViewPlayer {
         this.sources = sources;
         this.width = width;
         this.height = height;
-        int arraySize = this.MAX_PLAYER_INSTANCES;
+
+        int arraySize;
+
         if (this.sources.length < this.MAX_PLAYER_INSTANCES) {
             arraySize = sources.length;
+        } else {
+            arraySize = this.MAX_PLAYER_INSTANCES;
         }
         this.players = new ResizableJavaFXPlayer[arraySize];
         this.panes = new Pane[arraySize];
+
+        // initialize all Players from Array
         for (int i = 0; i < arraySize; i++) {
+            // width and height relative to MAX_PLAYER_INSTANCES to fit in best
             ResizableJavaFXPlayer rp = new ResizableJavaFXPlayer(
                     sources[i],
                     this.width / (this.MAX_PLAYER_INSTANCES / 2),
                     this.height / (this.MAX_PLAYER_INSTANCES / 2)
             );
-            this.players[i] = rp;
+
             Pane playerPane = rp.getPane();
+            this.players[i] = rp;
             this.panes[i] = playerPane;
 
+            // set location of each player pane, depending on position in array
             switch (i) {
                 case 0:
                     playerPane.relocate(0, 0);
                     break;
                 case 1:
-                    playerPane.relocate(0, this.height / (this.MAX_PLAYER_INSTANCES / 2));
+                    playerPane.relocate(
+                            0, this.height / (this.MAX_PLAYER_INSTANCES / 2)
+                    );
                     break;
                 case 2:
-                    playerPane.relocate(this.width / (this.MAX_PLAYER_INSTANCES / 2), 0);
+                    playerPane.relocate(
+                            this.width / (this.MAX_PLAYER_INSTANCES / 2), 0
+                    );
                     break;
                 case 3:
-                    playerPane.relocate(this.width / (this.MAX_PLAYER_INSTANCES / 2), this.height / (this.MAX_PLAYER_INSTANCES / 2));
+                    playerPane.relocate(
+                            this.width / (this.MAX_PLAYER_INSTANCES / 2),
+                            this.height / (this.MAX_PLAYER_INSTANCES / 2)
+                    );
                     break;
                 default:
                     break;
@@ -126,8 +142,9 @@ public class SplitViewPlayer {
             this.playing = false;
         }
     }
+
     /**
-     * 
+     *
      * @return {@link #playing}
      */
     public boolean isPlaying() {

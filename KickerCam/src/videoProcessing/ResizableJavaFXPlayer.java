@@ -40,7 +40,6 @@ import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
 import java.nio.ByteBuffer;
 import uk.co.caprica.vlcj.binding.LibVlc;
-import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 /**
@@ -49,26 +48,36 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
  * <p>
  * Originally contributed by Vladislav Kisel,
  * https://github.com/caprica/vlcj-javafx/pull/9, incorporated by caprica with
- * minor changes, https://github.com/caprica/vlcj-javafx, made ready for modular
- * use by Felix Lüpke.
- * <p>
+ * minor changes, https://github.com/caprica/vlcj-javafx, used for kickercam
+ * application by Felix Lüpke.
+ * </p>
  */
 public class ResizableJavaFXPlayer {
 
-    private final int PLAYER_ARRAY_SIZE = 4;
-
-    private String PATH_TO_VIDEO;
-
+    /**
+     * video source
+     */
+    private String pathToVideo;
+    /**
+     * place where video is displayed
+     */
     private ImageView imageView;
-
+    /**
+     * needed for rendering video by hand
+     */
     private DirectMediaPlayerComponent mediaPlayerComponent;
-
-    private MediaPlayer mediaPlayer;
-
+    /**
+     * specifies if video is playing or not
+     */
     private boolean playing = false;
-
+    /**
+     * (*.mjpeg) video is split into images and written here
+     */
     private WritableImage writableImage;
-
+    /**
+     * contains {@link #imageView imageView} <br>
+     * can be added to common javaFX Panes
+     */
     private Pane playerHolder;
 
     private WritablePixelFormat<ByteBuffer> pixelFormat;
@@ -76,7 +85,7 @@ public class ResizableJavaFXPlayer {
     private FloatProperty videoSourceRatioProperty;
 
     public ResizableJavaFXPlayer(String videoSource, double width, double height) {
-        this.PATH_TO_VIDEO = videoSource;
+        this.pathToVideo = videoSource;
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
         String libName = RuntimeUtil.getLibVlcLibraryName();
         Native.loadLibrary(libName, LibVlc.class);
@@ -94,7 +103,7 @@ public class ResizableJavaFXPlayer {
     }
 
     public void play() {
-        this.mediaPlayerComponent.getMediaPlayer().prepareMedia(PATH_TO_VIDEO);
+        this.mediaPlayerComponent.getMediaPlayer().prepareMedia(this.pathToVideo);
         this.mediaPlayerComponent.getMediaPlayer().start();
         this.playing = true;
     }
@@ -103,15 +112,14 @@ public class ResizableJavaFXPlayer {
         this.mediaPlayerComponent.getMediaPlayer().pause();
         this.playing = false;
     }
-    
+
     /**
-     * !!!DANGEROUS!!! <br> 
+     * !!!DANGEROUS!!! <br>
      * Only for testing purposes <br>
+     * frees ressources used by player <br>
      * Player won't be able to play video after calling this method.
      */
-
     public void killPlayer() {
-
         this.mediaPlayerComponent.getMediaPlayer().release();
     }
 
