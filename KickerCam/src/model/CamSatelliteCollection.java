@@ -34,6 +34,7 @@ public class CamSatelliteCollection {
 
     public CamSatellite prev() {
         int prevIndex;
+        CamSatellite returnValue;
         
         if (this.camSatellites.size() < 2) {
             return this.next();
@@ -51,7 +52,7 @@ public class CamSatelliteCollection {
             this.nextIndex--;
         }
         
-        CamSatellite returnValue = this.camSatellites.get(prevIndex);
+        returnValue = this.camSatellites.get(prevIndex);
 
         return returnValue;
     }
