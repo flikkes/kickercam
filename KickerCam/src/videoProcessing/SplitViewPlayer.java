@@ -150,7 +150,15 @@ public class SplitViewPlayer {
     public boolean isPlaying() {
         return this.playing;
     }
-
+    
+    /**
+     * Sets new {@link #sources}.<br>
+     * Takes as much url-strings as {@link #MAX_PLAYER_INSTANCES} allows and
+     * initializes a {@link ResizableJavaFXPlayer} for each of them.<br>
+     * Due to the possibility of a decrease/an increase of players every player 
+     * is relocated individually inside the the {@link #panes panes}.
+     * @param sources a string array with sources to play from
+     */
     public void setSources(String[] sources) {
         if (sources.length <= this.MAX_PLAYER_INSTANCES) {
             this.sources = sources;
