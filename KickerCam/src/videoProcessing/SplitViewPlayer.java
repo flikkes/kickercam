@@ -150,4 +150,54 @@ public class SplitViewPlayer {
     public boolean isPlaying() {
         return this.playing;
     }
+
+    public void setSources(String[] sources) {
+        if (sources.length <= this.MAX_PLAYER_INSTANCES) {
+            this.sources = sources;
+            int arraySize = sources.length;
+            this.players = new ResizableJavaFXPlayer[arraySize];
+            this.panes = new Pane[arraySize];
+
+            // initialize all Players from Array
+            for (int i = 0; i < arraySize; i++) {
+                // width and height relative to MAX_PLAYER_INSTANCES to fit in best
+                ResizableJavaFXPlayer rp = new ResizableJavaFXPlayer(
+                        sources[i],
+                        this.width / (this.MAX_PLAYER_INSTANCES / 2),
+                        this.height / (this.MAX_PLAYER_INSTANCES / 2)
+                );
+
+                Pane playerPane = rp.getPane();
+                this.players[i] = rp;
+                this.panes[i] = playerPane;
+
+                // set location of each player pane, depending on position in array
+                switch (i) {
+                    case 0:
+                        playerPane.relocate(0, 0);
+                        break;
+                    case 1:
+                        playerPane.relocate(
+                                0, this.height / (this.MAX_PLAYER_INSTANCES / 2)
+                        );
+                        break;
+                    case 2:
+                        playerPane.relocate(
+                                this.width / (this.MAX_PLAYER_INSTANCES / 2), 0
+                        );
+                        break;
+                    case 3:
+                        playerPane.relocate(
+                                this.width / (this.MAX_PLAYER_INSTANCES / 2),
+                                this.height / (this.MAX_PLAYER_INSTANCES / 2)
+                        );
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } else {
+            System.out.println("Array too big...");
+        }
+    }
 }

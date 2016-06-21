@@ -7,6 +7,8 @@ package networking;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +20,7 @@ public class URLScanner {
 
     public static void main(String[] args) {
         URLScanner uRLScanner = new URLScanner();
-        String[] urls = {"nothing"};
+        List<String> urls = null;
         try {
             urls = uRLScanner.scanRange("http://10.10.10.", 0, 20, 8081);
         } catch (OutOfIpRangeException ex) {
@@ -51,11 +53,11 @@ public class URLScanner {
      * @param from
      * @param to
      * @param port optional, use -1 if no port is needed
-     * @return a string array with all URLs that could be reached
+     * @return a list of strings with all URLs that could be reached
      * @throws networking.URLScanner.OutOfIpRangeException
      */
-    public String[] scanRange(String fixedURLPart, int from, int to, int port) throws OutOfIpRangeException {
-        String[] activeURLs = new String[to - from + 1];
+    public List<String> scanRange(String fixedURLPart, int from, int to, int port) throws OutOfIpRangeException {
+        List<String> activeURLs = new ArrayList<>();
 
         if (from > to || from < 0 || to > 254) {
             throw new OutOfIpRangeException();
@@ -69,7 +71,7 @@ public class URLScanner {
                 System.out.println(urlToCheck);
             }
             if (this.scanURL(urlToCheck)) {
-                activeURLs[i] = urlToCheck;
+                activeURLs.add(urlToCheck);
             }
         }
 

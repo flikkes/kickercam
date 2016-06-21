@@ -57,7 +57,7 @@ public class ResizableJavaFXPlayer {
     /**
      * video source
      */
-    private String pathToVideo;
+    private String videoSource;
     /**
      * place where video is displayed
      */
@@ -85,7 +85,7 @@ public class ResizableJavaFXPlayer {
     private FloatProperty videoSourceRatioProperty;
 
     public ResizableJavaFXPlayer(String videoSource, double width, double height) {
-        this.pathToVideo = videoSource;
+        this.videoSource = videoSource;
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
         String libName = RuntimeUtil.getLibVlcLibraryName();
         Native.loadLibrary(libName, LibVlc.class);
@@ -103,7 +103,7 @@ public class ResizableJavaFXPlayer {
     }
 
     public void play() {
-        this.mediaPlayerComponent.getMediaPlayer().prepareMedia(this.pathToVideo);
+        this.mediaPlayerComponent.getMediaPlayer().prepareMedia(this.videoSource);
         this.mediaPlayerComponent.getMediaPlayer().start();
         this.playing = true;
     }
@@ -129,6 +129,10 @@ public class ResizableJavaFXPlayer {
 
     public void setDisplaySize(double width, double height) {
         this.playerHolder.resize(width, height);
+    }
+    
+    public void setVideoSource(String videoSource) {
+        this.videoSource = videoSource;
     }
 
     private void initializeImageView() {
