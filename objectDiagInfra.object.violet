@@ -470,7 +470,7 @@
      <object class="com.horstmann.violet.BentStyle" field="HV"/>
     </void>
     <void property="endLabel">
-     <string>responds with HLS</string>
+     <string>responds with Stream</string>
     </void>
     <void property="middleLabel">
      <string>HTTP</string>
@@ -488,7 +488,7 @@
      <object class="com.horstmann.violet.BentStyle" field="HVH"/>
     </void>
     <void property="endLabel">
-     <string>responds with HLS</string>
+     <string>responds with Stream</string>
     </void>
     <void property="middleLabel">
      <string>HTTP</string>
@@ -506,7 +506,7 @@
      <object class="com.horstmann.violet.BentStyle" field="HVH"/>
     </void>
     <void property="endLabel">
-     <string>responds with HLS</string>
+     <string>responds with Stream</string>
     </void>
     <void property="middleLabel">
      <string>HTTP</string>

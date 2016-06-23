@@ -116,7 +116,7 @@ public class ResizableJavaFXPlayer {
     /**
      * !!!DANGEROUS!!! <br>
      * Only for testing purposes <br>
-     * frees ressources used by player <br>
+     * frees resources used by player <br>
      * Player won't be able to play video after calling this method.
      */
     public void killPlayer() {

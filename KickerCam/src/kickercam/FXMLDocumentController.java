@@ -139,7 +139,7 @@ public class FXMLDocumentController implements Initializable {
         int port = Integer.parseInt(this.portTextField.getText());
 
         try {
-            sources = uRLScanner.scanRange("http://" + urlText, fromIpRange, toIpRange, port);
+            sources = uRLScanner.scanRange("http://" + urlText+".", fromIpRange, toIpRange, port);
         } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }

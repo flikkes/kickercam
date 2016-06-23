@@ -35,7 +35,7 @@ public class URLScanner {
         HttpURLConnection urlCon;
         try {
             urlCon = (HttpURLConnection) new URL(url).openConnection();
-            urlCon.setConnectTimeout(2000);
+            urlCon.setConnectTimeout(1000);
             urlCon.connect();
             System.out.println("SUCCESS: " + url + " exists");
             return true;
