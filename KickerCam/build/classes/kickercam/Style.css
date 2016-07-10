@@ -8,5 +8,7 @@ and open the template in the editor.
     Author     : flikkes
 */
 #anchorPane {
-    
+    -fx-background-image: url("leo.jpg");
+    -fx-background-size: 1024 768;
+    -fx-background-position: center center;
 }

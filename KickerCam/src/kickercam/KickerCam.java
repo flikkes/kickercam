@@ -18,7 +18,6 @@ import javafx.stage.WindowEvent;
  * @author flikkes
  */
 public class KickerCam extends Application {
-    //public static WebcamService webcamService = new WebcamService("Wildlife.wmv");
     
     @Override
     public void start(Stage stage) throws Exception {

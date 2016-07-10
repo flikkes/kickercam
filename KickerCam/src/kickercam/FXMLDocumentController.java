@@ -22,6 +22,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -68,26 +75,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.camSatelliteCollection = new CamSatelliteCollection();
         this.fileChooser.setTitle("Open Video File");
-        this.fileChooser.getExtensionFilters().add(new ExtensionFilter("Video Files", "*.mjpeg", "*.avi", "*.mp4", "*.flv"));
-
-//        URLScanner uRLScanner = new URLScanner();
-//        List<String> sources = null;
-//        String[] sourcesArray;
-//        try {
-//            sources = uRLScanner.scanRange("http://10.10.10.", 0, 20, 8081);
-//        } catch (Exception ex) {
-//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        if (sources != null) {
-//            sourcesArray = new String[sources.size()];
-//            for (int i = 0; i < sources.size(); i++) {
-//                this.camSatelliteCollection.addCamSatellite(new CamSatellite("Table " + (i + 1), sources.get(i)));
-//                sourcesArray[i] = sources.get(i);
-//            }
-//            this.splitViewPlayer = new SplitViewPlayer(sourcesArray, 480, 320);
-//            this.player = new ResizableJavaFXPlayer(this.camSatelliteCollection.next().getVideoSource(), 480, 320);
-//        }
+        this.fileChooser.getExtensionFilters().add(new ExtensionFilter("Video Files", "*.mjpeg", "*.avi", "*.mp4", "*.flv", "*.wmv"));
     }
 
     public void setMainStage(Stage mainStage) {
@@ -246,7 +234,7 @@ public class FXMLDocumentController implements Initializable {
                     this.player.setVideoSource(clip.getPath());
                 } else {
                     this.player = new ResizableJavaFXPlayer(clip.getPath(), 480, 320);
-                    
+
                 }
                 this.toggleSingleVideo();
                 this.playVideoClipButton.setText("Stop Video Clip");
