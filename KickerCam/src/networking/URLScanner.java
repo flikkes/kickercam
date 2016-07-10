@@ -47,7 +47,7 @@ public class URLScanner {
 
     /**
      * Checks a range of URLs for reachability. Only works with URLs that
-     * consist of an ip.
+     * consist of an ip. Range is only checked in the last Byte.
      *
      * @param fixedURLPart
      * @param from
@@ -64,7 +64,7 @@ public class URLScanner {
         }
         for (int i = from; i < to+1; i++) {
             String urlToCheck;
-            if (port == -1) {
+            if (port < 0) {
                 urlToCheck = fixedURLPart + i;
             } else {
                 urlToCheck = fixedURLPart + i + ":" + port;

@@ -10,10 +10,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import model.CamSatellite;
@@ -41,11 +46,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField urlTextField, portTextField, fromTextField, toTextField;
 
+    @FXML
+    private TableView tableView;
+
     String testURL = "http://10.10.10.11:8081/";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.camSatelliteCollection = new CamSatelliteCollection();
+
 //        URLScanner uRLScanner = new URLScanner();
 //        List<String> sources = null;
 //        String[] sourcesArray;
@@ -64,7 +73,6 @@ public class FXMLDocumentController implements Initializable {
 //            this.splitViewPlayer = new SplitViewPlayer(sourcesArray, 480, 320);
 //            this.player = new ResizableJavaFXPlayer(this.camSatelliteCollection.next().getVideoSource(), 480, 320);
 //        }
-
     }
 
     @FXML
@@ -127,7 +135,10 @@ public class FXMLDocumentController implements Initializable {
             toggleSingleVideo();
         }
     }
-
+    /**
+     * Uses {@link URLScanner} to search for active {@link CamSatellite Cam Satellites} in the Network.
+     * 
+     */
     @FXML
     private void scanForCamSatellites() {
         URLScanner uRLScanner = new URLScanner();
@@ -137,9 +148,9 @@ public class FXMLDocumentController implements Initializable {
         int fromIpRange = Integer.parseInt(this.fromTextField.getText());
         int toIpRange = Integer.parseInt(this.toTextField.getText());
         int port = Integer.parseInt(this.portTextField.getText());
-
+        
         try {
-            sources = uRLScanner.scanRange("http://" + urlText+".", fromIpRange, toIpRange, port);
+            sources = uRLScanner.scanRange("http://" + urlText + ".", fromIpRange, toIpRange, port);
         } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -147,9 +158,22 @@ public class FXMLDocumentController implements Initializable {
         if (sources != null && sources.size() > 0) {
             sourcesArray = new String[sources.size()];
             for (int i = 0; i < sources.size(); i++) {
-                this.camSatelliteCollection.addCamSatellite(new CamSatellite("Table " + (i + 1), sources.get(i)));
+                
+                CamSatellite sat = new CamSatellite("Table " + (i + 1), sources.get(i));
+                this.camSatelliteCollection.addCamSatellite(sat);
                 sourcesArray[i] = sources.get(i);
             }
+            
+            ObservableList<CamSatellite> observableCamSatelliteList = this.camSatelliteCollection.getObservableList();
+            
+            TableColumn<CamSatellite, String> nameColumn = new TableColumn<>();
+            TableColumn<CamSatellite, String> urlColumn = new TableColumn<>();
+
+            nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+            urlColumn.setCellValueFactory(new PropertyValueFactory("videoSource"));
+            
+            this.tableView.setItems(observableCamSatelliteList);
+            this.tableView.getColumns().setAll(nameColumn, urlColumn);
 
             if (this.splitViewPlayer == null) {
                 this.splitViewPlayer = new SplitViewPlayer(sourcesArray, 480, 320);
@@ -166,7 +190,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
+    @FXML 
     private void addVideoClip() {
 
     }

@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/kickercam/FXMLDocumentController.java</file>
             <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/model/CamSatelliteCollection.java</file>
+            <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/kickercam/Style.css</file>
             <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/videoProcessing/SplitViewPlayer.java</file>
-            <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/networking/URLScanner.java</file>
+            <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/videoProcessing/VideoDownloader.java</file>
             <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/model/CamSatellite.java</file>
+            <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/networking/URLScanner.java</file>
             <file>file:/C:/Users/flikkes/kickercam/KickerCam/src/videoProcessing/ResizableJavaFXPlayer.java</file>
         </group>
     </open-files>

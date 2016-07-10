@@ -12,8 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -35,6 +33,7 @@ public class VideoDownloader extends Thread {
         }
     }
 //TODO save video with correct framerate information
+
     @Override
     public void run() {
         this.time = System.currentTimeMillis();
@@ -43,14 +42,10 @@ public class VideoDownloader extends Thread {
             this.currentTempFileName = "temp" + this.time + ".mjpeg";
             File file = new File(this.currentTempFileName);
             FileUtils.copyToFile(this.inputStream, file);
-            Media media = new Media(file.getPath());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setAutoPlay(true);
         } catch (IOException ex) {
             Logger.getLogger(VideoDownloader.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
         }
-        
 
     }
 
