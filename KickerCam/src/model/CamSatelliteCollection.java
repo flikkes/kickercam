@@ -18,17 +18,21 @@ public class CamSatelliteCollection {
     private List<CamSatellite> camSatellites = new ArrayList<>();
     private List<String> sources = new ArrayList<>();
     private int nextIndex = 0;
+    private CamSatellite currentSatellite;
+    private int size = 0;
 
     public void addCamSatellite(CamSatellite sat) {
         if (!this.sources.contains(sat.getVideoSource())) {
             this.camSatellites.add(sat);
             this.sources.add(sat.getVideoSource());
+            this.size++;
         }
     }
 
     public CamSatellite next() {
         CamSatellite returnValue = this.camSatellites.get(this.nextIndex);
-
+        this.currentSatellite = returnValue;
+        
         if (this.nextIndex == (this.camSatellites.size() - 1)) {
             this.nextIndex = 0;
         } else {
@@ -59,11 +63,26 @@ public class CamSatelliteCollection {
         }
 
         returnValue = this.camSatellites.get(prevIndex);
+        this.currentSatellite = returnValue;
 
         return returnValue;
+    }
+    /**
+     * Still buggy
+     * @return currently 'selected' {@link CamSatellite Cam Satellite}
+     */
+    public CamSatellite curr() {
+        return this.currentSatellite;
     }
 
     public ObservableList<CamSatellite> getObservableList() {
         return FXCollections.observableArrayList(this.camSatellites);
+    }
+    /**
+     * 
+     * @return number of {@link CamSatellite Cam Satellites} in this Collection
+     */
+    public int size() {
+        return this.size;
     }
 }

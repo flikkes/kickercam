@@ -22,6 +22,7 @@ public class KickerCam extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        FXMLDocumentController controller = new FXMLDocumentController();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         stage.setOnCloseRequest((WindowEvent event) -> {
@@ -33,6 +34,8 @@ public class KickerCam extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        controller.setMainStage(stage);
     }
 
     /**
